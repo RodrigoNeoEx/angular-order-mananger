@@ -10,11 +10,12 @@ import { RouterModule } from '@angular/router';
   declarations: [HomeComponent], // Declara o componente Home
   imports: [
     CommonModule,               // Importa recursos comuns (ngIf, ngFor)
-    MatToolbarModule,           // Toolbar do Angular Material
+    RouterModule.forChild([{ path: '', component: HomeComponent }]), // Define a rota da Home
     MatCardModule,              // Card do Angular Material
+    MatToolbarModule,           // Toolbar do Angular Material
     MatButtonModule,            // Botões do Angular Material
-    RouterModule                // Para usar routerLink
   ],
   exports: [HomeComponent]      // Exporta caso precise ser reutilizado
 })
+
 export class HomeModule {}
