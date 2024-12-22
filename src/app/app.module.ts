@@ -8,14 +8,16 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent // Apenas o AppComponent é declarado aqui
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppRoutingModule, // Importa o módulo de rotas principal
-    AngularFireModule.initializeApp(environment.firebaseConfig), // Inicializa o Firebase
-    AngularFireAuthModule, // Adiciona o módulo de autenticação
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule,
   ],
-  bootstrap: [AppComponent], // Componente inicial da aplicação
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

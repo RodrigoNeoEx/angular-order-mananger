@@ -5,6 +5,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { HeaderModule } from '../header/header.module';
+
 
 @NgModule({
   declarations: [HomeComponent], // Declara o componente Home
@@ -14,6 +16,7 @@ import { RouterModule } from '@angular/router';
     MatCardModule,              // Card do Angular Material
     MatToolbarModule,           // Toolbar do Angular Material
     MatButtonModule,            // Botões do Angular Material
+    HeaderModule,
   ],
   exports: [HomeComponent]      // Exporta caso precise ser reutilizado
 })
