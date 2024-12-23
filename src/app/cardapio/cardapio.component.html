@@ -1,14 +1,14 @@
 <app-header></app-header>
 
 
-  <mat-accordion>
+  <mat-accordion *ngFor="let expansionMenus of expansionMenus">
 
     <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
 
       <mat-expansion-panel-header>
 
-        <mat-panel-title> Menu Entradas </mat-panel-title>
-        <mat-panel-description> Magnificas Opções Para Abrir seu apetite </mat-panel-description>
+        <mat-panel-title> {{expansionMenus.title}} </mat-panel-title>
+        <mat-panel-description> {{expansionMenus.description}} </mat-panel-description>
         <mat-icon>this.expansionIcon</mat-icon>
 
       </mat-expansion-panel-header>
