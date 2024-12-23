@@ -21,9 +21,19 @@ export class CardapioComponent {
   sobremesas: any[] = [];
   bebidas: any[] = [];
 
+  menuData: { [key: string]: any[] } = {};
+
   constructor(private menuService: MenuService) {}
 
   ngOnInit(): void {
-    this.expansionMenus = this.menuService.getExpansionMenus()
+    this.expansionMenus = this.menuService.getExpansionMenus();
+
+    this.menuData['Menu de Entradas'] = this.menuService.getEntradas();
+    this.menuData['Pratos Principais'] = this.menuService.getPrincipais();
+    this.menuData['Massas'] = this.menuService.getMassas();
+    this.menuData['Carnes'] = this.menuService.getCarnes();
+    this.menuData['Peixes'] = this.menuService.getPeixes();
+    this.menuData['Sobremesas'] = this.menuService.getSobremesas();
+    this.menuData['Bebidas'] = this.menuService.getBebidas();
   }  
 }

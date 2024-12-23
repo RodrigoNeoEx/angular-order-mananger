@@ -1,29 +1,30 @@
 <app-header></app-header>
 
 
-  <mat-accordion *ngFor="let expansionMenus of expansionMenus">
+  <mat-accordion *ngFor="let menu of expansionMenus">
 
     <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
 
       <mat-expansion-panel-header>
 
-        <mat-panel-title> {{expansionMenus.title}} </mat-panel-title>
-        <mat-panel-description> {{expansionMenus.description}} </mat-panel-description>
+        <mat-panel-title> {{menu.title}} </mat-panel-title>
+        <mat-panel-description> {{menu.description}} </mat-panel-description>
         <mat-icon>this.expansionIcon</mat-icon>
 
       </mat-expansion-panel-header>
 
 
-
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title>Bruschetta</mat-card-title>
-            <mat-card-subtitle>Pão italiano com tomate, manjericão e azeite</mat-card-subtitle>
-            <img mat-card-md-image src="../../assets/entrada1.webp" >
-          </mat-card-title-group>
-        </mat-card-header>   
-      </mat-card>
+      <div *ngFor="let item of menuData[menu.title]">
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title-group>
+              <mat-card-title>{{ item.name }}</mat-card-title>
+              <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
+              <img mat-card-md-image src="../../assets/entrada1.webp" >
+            </mat-card-title-group>
+          </mat-card-header>   
+        </mat-card>
+      </div>
 
     </mat-expansion-panel>
 
