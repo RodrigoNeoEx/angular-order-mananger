@@ -1,8 +1,31 @@
-<div>
-  <mat-card>
-    <mat-card-title>Bem-vindo ao Restaurante Lorem Ipsum!</mat-card-title>
-    <mat-card-content>
-      <p>Faça seu pedido logando ou acessando o cardapio como visitante.</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+<app-header></app-header>
+
+
+  <mat-accordion>
+
+    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+
+      <mat-expansion-panel-header>
+
+        <mat-panel-title> Menu Entradas </mat-panel-title>
+        <mat-panel-description> Magnificas Opções Para Abrir seu apetite </mat-panel-description>
+        <mat-icon>this.expansionIcon</mat-icon>
+
+      </mat-expansion-panel-header>
+
+
+
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title-group>
+            <mat-card-title>Bruschetta</mat-card-title>
+            <mat-card-subtitle>Pão italiano com tomate, manjericão e azeite</mat-card-subtitle>
+            <img mat-card-md-image src="../../assets/entrada1.webp" >
+          </mat-card-title-group>
+        </mat-card-header>   
+      </mat-card>
+
+    </mat-expansion-panel>
+
+  <mat-accordion>
+

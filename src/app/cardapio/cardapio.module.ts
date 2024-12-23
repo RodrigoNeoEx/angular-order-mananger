@@ -5,6 +5,9 @@ import { RouterModule } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { HeaderModule } from '../header/header.module';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatIconModule} from '@angular/material/icon';
 
 
 
@@ -15,7 +18,13 @@ import { MatButtonModule } from '@angular/material/button';
     MatCardModule,
     MatToolbarModule,
     MatButtonModule,
+    HeaderModule,
+    MatExpansionModule,
+    MatIconModule,
     RouterModule.forChild([{ path: '', component: CardapioComponent }]), // Define a rota do Cardápio
   ],
 })
-export class CardapioModule {}
+export class CardapioModule {  
+  
+}
+
