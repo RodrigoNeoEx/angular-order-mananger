@@ -1,32 +1,48 @@
-<app-header></app-header>
 
-
-  <mat-accordion *ngFor="let menu of expansionMenus">
-
-    <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
-
-      <mat-expansion-panel-header>
-
+<div class="cardapio-container">
+  <app-header></app-header>
+  <mat-accordion *ngFor="let menu of expansionMenus" class="accordion-container" >
+    <mat-expansion-panel 
+      (opened)="panelOpenState.set(true)" 
+      (closed)="panelOpenState.set(false)"
+      class="container-panel"         
+    >
+      <mat-expansion-panel-header class="container-expansion">
         <mat-panel-title> {{menu.title}} </mat-panel-title>
         <mat-panel-description> {{menu.description}} </mat-panel-description>
         <mat-icon>this.expansionIcon</mat-icon>
-
       </mat-expansion-panel-header>
 
-
       <div *ngFor="let item of menuData[menu.title]">
-        <mat-card>
+        <mat-card class="card-container">
           <mat-card-header>
             <mat-card-title-group>
               <mat-card-title>{{ item.name }}</mat-card-title>
               <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
               <img mat-card-md-image src="../../assets/entrada1.webp" >
             </mat-card-title-group>
-          </mat-card-header>   
+          </mat-card-header>
+          <mat-divider class="divider"></mat-divider>
+          <mat-card-actions class="card-actions">
+            <p>Preço: R${{item.price}}</p>
+           
+              <button class="card-button" mat-mini-fab aria-label="remove item button">
+                <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
+              </button>
+              <p>1</p>
+              <button class="card-button" mat-mini-fab aria-label="add cart Button">
+                <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
+              </button>
+         
+          </mat-card-actions>
+          <button mat-stroked-button extended>
+            Adicionar ao Carrinho
+            <mat-icon>add_shopping_cart</mat-icon>
+          </button>
         </mat-card>
       </div>
 
     </mat-expansion-panel>
-
-  <mat-accordion>
+  </mat-accordion>
+</div>
 

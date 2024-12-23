@@ -1,0 +1,43 @@
+.cardapio-container {
+  background: url('../../assets/menuBackground.webp') center/cover repeat;
+  height: 100vh;
+}
+
+.accordion-container {
+  display: flex;
+  margin: 0.5rem;
+  padding-right: 0.5rem;
+  .container-panel {
+    min-height: 3.5rem;
+    .container-expansion {
+      min-height: 3rem;
+      height: auto;
+      margin: 0.5rem 0;
+    }
+  }
+  ::ng-deep .mat-expansion-panel-content {
+    max-height: 40vh !important;
+    overflow: overlay !important;
+  }    
+}
+
+.divider {
+  margin-top: 8px;
+}
+
+.card-container {
+    margin-top: 0.7rem;
+    ::ng-deep .mdc-card__actions {
+      justify-content: space-around !important;
+      align-items: self-end !important;
+      padding-bottom: 0;
+    }
+    .card-button {
+      background-color: transparent;
+      box-shadow: 0 0 0 0;
+
+      .card-icon{
+        color: black;
+      }
+    }
+}
