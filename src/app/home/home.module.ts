@@ -16,7 +16,7 @@ import { HeaderModule } from '../header/header.module';
     MatCardModule,              // Card do Angular Material
     MatToolbarModule,           // Toolbar do Angular Material
     MatButtonModule,            // Botões do Angular Material
-    HeaderModule,
+    HeaderModule,    
   ],
   exports: [HomeComponent]      // Exporta caso precise ser reutilizado
 })
