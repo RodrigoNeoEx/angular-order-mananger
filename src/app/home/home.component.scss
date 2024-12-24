@@ -29,21 +29,6 @@
       align-items: center;
     }
     button {   
-      &.google-button {
-        background-color: #ffffff;
-        color: #4285f4; // Cor do texto personalizada (Google)
-        display: flex;
-        align-items: center; // Alinha verticalmente os elementos
-        justify-content: center;      
-      
-        .google-content {
-          display: flex;
-          justify-content: space-between; // Afasta os elementos filhos
-          align-items: center;
-          width: 100%; // Usa a largura total do botão
-        } 
-      }
-  
       &.menu-button {
         background-color: #000000b0; // Botão preto (segundo)
         color: #ffffff; // Cor do texto branco

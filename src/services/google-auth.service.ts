@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
+import firebase from 'firebase/compat/app'; // Para compatibilidade
+import 'firebase/compat/auth'; // Certifique-se de que o módulo auth é carregado
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -28,22 +29,27 @@ export class GoogleAuthService {
       }
     });
   }
-
+  
   loginWithGoogle(): Promise<void> {
-    return this.afAuth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-      .then(() => this.afAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()))
+    
+    const provider = new firebase.auth.GoogleAuthProvider();
+    
+    return firebase.auth().signInWithPopup(provider)
       .then((result) => {
-        console.log('Usuário Logado:', result.user);
-        this.userSubject.next(result.user);
-        localStorage.setItem('user', JSON.stringify(result.user));
+        if (result.user) {
+          this.userSubject.next(result.user);
+          this.authStateSubject.next(true);
+          localStorage.setItem('user', JSON.stringify(result.user));
+        }
       })
-      .catch((error) => console.error('Erro no login:', error));
-  }
+      .catch((error) => {
+        console.error('Erro durante o login direto com Firebase:', error);
+      });
+  }  
 
   logout(): Promise<void> {
     return this.afAuth.signOut()
       .then(() => {
-        console.log('Usuário deslogado');
         this.userSubject.next(null);
         localStorage.removeItem('user');
       })

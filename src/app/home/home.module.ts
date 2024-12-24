@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { HeaderModule } from '../header/header.module';
+import { SharedModule } from 'src/app/shared/shared.module'; 
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { HeaderModule } from '../header/header.module';
     MatCardModule,              // Card do Angular Material
     MatToolbarModule,           // Toolbar do Angular Material
     MatButtonModule,            // Botões do Angular Material
-    HeaderModule,    
+    HeaderModule,
+    SharedModule    
   ],
   exports: [HomeComponent]      // Exporta caso precise ser reutilizado
 })

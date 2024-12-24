@@ -9,26 +9,9 @@
     </mat-card>
       
     <div class="button-group">
-      <button           
-        mat-raised-button           
-        class="google-button" 
-        *ngIf="!isLoggedIn"
-        (click)="loginWithGoogle()"
-      >
-      <div class="google-content">
-        <img class="img-icon" src="../../assets/googleIconSVG.svg" alt="google icon" width="24" height="24" />
-        <div>oogle login</div>
+ 
+      <app-login-social></app-login-social>
 
-      </div>
-      </button>
-      <!-- <button
-      mat-raised-button
-      color="warn"
-      class="logout-button"
-      *ngIf="isLoggedIn" 
-      (click)="logout()">
-      Logout
-    </button> -->
       <button 
         mat-raised-button 
         class="menu-button"         
