@@ -4,10 +4,11 @@
     <mat-toolbar-row>
       <span>{{ welcomeText() }} </span>
       <span class="example-spacer"></span>
-      <button class="cart-button" mat-mini-fab aria-label="Cart Button" (click)="onClick()">
+      <button class="cart-button" mat-mini-fab aria-label="Cart Button" routerLink="/cart" (click)="onClick()">
           <mat-icon matBadge="15" class="demo-section" aria-hidden="false" aria-label="Example user verified icon">shopping_cart</mat-icon>
       </button>
     </mat-toolbar-row>
   
   
   </mat-toolbar>
+  

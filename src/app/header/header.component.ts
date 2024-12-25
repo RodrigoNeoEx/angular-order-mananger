@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -6,18 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  cart: string = "cart clicado";
   user: string | null = "";
+
+    constructor(
+
+      private router: Router
+    ) {}
   
-  
+  onClick() {this.router.navigate(['/cart'])};
   
   welcomeText(): string { 
     const text = `Bem vindo ${this.user}`
     return text
-  }
-   
-  onClick():void {console.log(this.user)}
-
+  } 
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('user'); // Pega os dados do localStorage
@@ -27,8 +29,5 @@ export class HeaderComponent implements OnInit {
     } else {
       this.user = "";
     }
-
-    console.log(this.user)
   }
-
 }

@@ -12,8 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 @NgModule({
   declarations: [HomeComponent], // Declara o componente Home
   imports: [
-    CommonModule,               // Importa recursos comuns (ngIf, ngFor)
     RouterModule.forChild([{ path: '', component: HomeComponent }]), // Define a rota da Home
+    CommonModule,               // Importa recursos comuns (ngIf, ngFor)
     MatCardModule,              // Card do Angular Material
     MatToolbarModule,           // Toolbar do Angular Material
     MatButtonModule,            // Botões do Angular Material
