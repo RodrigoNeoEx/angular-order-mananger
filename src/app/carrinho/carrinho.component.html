@@ -82,12 +82,24 @@
         </div>
       </form>
     </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
+
+    <mat-step>      
+      <ng-template matStepLabel>Método de Pagamento</ng-template>
+ 
+
+      <mat-form-field>
+        <mat-label>Selecione Uma Forma de Pagamento</mat-label>  
+        <select matNativeControl required>
+          <option value="Débito">Débito</option>
+          <option value="Crédito">Crédito</option>
+          <option value="Pix">Pix</option>
+          <option value="Dinheiro">Dinheiro</option>
+          <option value="Refeição">Cartão Refeição</option>
+        </select>
+      </mat-form-field>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button (click)="stepper.reset()">Enviar Pedido</button>
       </div>
     </mat-step>
   </mat-stepper>
