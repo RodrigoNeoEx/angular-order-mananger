@@ -38,7 +38,7 @@
             <p>Total No Carrinho</p>
             <p>R$ 549,00</p>
           </div>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperNext>Proximo</button>
         </div>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup">
@@ -80,8 +80,8 @@
         </mat-form-field>
 
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button matStepperNext>Proximo</button>
         </div>
       </form>
     </mat-step>
@@ -101,9 +101,21 @@
         </select>
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button matStepperPrevious>Voltar</button>
         <button mat-button (click)="stepper.reset()">Enviar Pedido</button>
       </div>
     </mat-step>
   </mat-stepper>
+</div>
+
+<div>
+  <button 
+  mat-raised-button 
+  class="menu-button"         
+  routerLink="/menu"
+>
+ Retornar ao Cardapio
+  <img class="img-icon" src="../../assets/retaurantIconSVG.svg" alt="retaurant icon" width="24" height="24" />
+  
+</button>  
 </div>
