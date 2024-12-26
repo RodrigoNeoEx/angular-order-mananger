@@ -26,11 +26,11 @@
           <mat-card-actions class="card-actions">
             <p>Preço: R${{item.price}}</p>
            
-              <button class="card-button" mat-mini-fab aria-label="remove item button">
+              <button class="card-button" mat-mini-fab aria-label="remove item button" (click)="removeFromProduct(item.id)">
                 <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
               </button>
               <p>1</p>
-              <button class="card-button" mat-mini-fab aria-label="add cart Button">
+              <button class="card-button" mat-mini-fab aria-label="add cart Button" (click)="addToProduct(item)">
                 <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
               </button>
          

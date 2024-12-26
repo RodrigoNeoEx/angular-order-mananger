@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CartQuery } from '../stores/cart/cart.query';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +9,10 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   user: string | null = "";
+  totalItems$ = this.cartQuery.totalItems$;
 
     constructor(
-
+      private cartQuery: CartQuery,
       private router: Router
     ) {}
   
