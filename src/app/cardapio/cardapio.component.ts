@@ -14,6 +14,7 @@ import { SingleProductQuery } from '../stores/item/single-product.query';
 export class CardapioComponent {
   readonly panelOpenState = signal(false);
   expansionIcon: string = this.panelOpenState() ? "keyboard_arrow_down" : "keyboard_arrow_up"
+  openPanelIndex: number | null = null;
 
   expansionMenus: any[] = [];
   entradas: any[] = [];
@@ -35,8 +36,14 @@ export class CardapioComponent {
     private singleProductQuery: SingleProductQuery
   ) {}
 
+  setOpenPanel(index: number) {
+    this.openPanelIndex = index;
+  }
+
   addToProduct(item: any) {
     const existingProduct = this.singleProductQuery.getEntity(item.id);
+
+    console.log(existingProduct)
   
     if (!existingProduct) {
       // Adiciona o produto à store com quantidade inicial = 1

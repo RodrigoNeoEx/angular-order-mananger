@@ -1,10 +1,10 @@
 
 <div class="cardapio-container">
   <app-header></app-header>
-  <mat-accordion *ngFor="let menu of expansionMenus" class="accordion-container" >
+  <mat-accordion *ngFor="let menu of expansionMenus let i = index" class="accordion-container">
     <mat-expansion-panel 
-      (opened)="panelOpenState.set(true)" 
-      (closed)="panelOpenState.set(false)"
+      [expanded]="openPanelIndex === i"
+      (opened)="setOpenPanel(i)"
       class="container-panel"         
     >
       <mat-expansion-panel-header class="container-expansion">
