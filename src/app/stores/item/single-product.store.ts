@@ -28,6 +28,7 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     this.update(productId, entity => ({
       quantity: entity.quantity + 1,
     }));
+    this.updateTotalPrice(productId)
   }
   
   
@@ -35,6 +36,7 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     this.update(productId, entity => ({
       quantity: entity.quantity > 0 ? entity.quantity - 1 : 0,
     }));
+    this.updateTotalPrice(productId)
   }
   
 
@@ -63,6 +65,6 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     this.subtractionCounter(productId); // Decrementa a quantidade
     this.updateTotalPrice(productId); // Atualiza o preço total do produto
   }
-    
+
 
 }

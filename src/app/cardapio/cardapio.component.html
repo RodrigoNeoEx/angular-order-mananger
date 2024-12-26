@@ -17,7 +17,7 @@
         <mat-card class="card-container">
           <mat-card-header>
             <mat-card-title-group>
-              <mat-card-title>{{ item.name }}</mat-card-title>
+              <mat-card-title>{{ item.id }}</mat-card-title>
               <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
               <img mat-card-md-image src="../../assets/entrada1.webp" >
             </mat-card-title-group>
@@ -26,19 +26,36 @@
           <mat-card-actions class="card-actions">
             <p>Preço: R${{item.price}}</p>
            
-              <button class="card-button" mat-mini-fab aria-label="remove item button" (click)="removeFromProduct(item.id)">
+              <button 
+                class="card-button"
+                mat-mini-fab 
+                aria-label="remove item button" 
+                (click)="removeFromProduct(item.id)"
+              >
                 <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
               </button>
-              <p>1</p>
-              <button class="card-button" mat-mini-fab aria-label="add cart Button" (click)="addToProduct(item)">
+
+
+              <p>{{ getProductQuantity(item.id) }}</p>
+              
+              
+              <button 
+                class="card-button" 
+                mat-mini-fab 
+                aria-label="add cart Button" 
+                (click)="addToProduct(item)"
+              >
                 <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
               </button>
          
-          </mat-card-actions>
+            </mat-card-actions>
+            <p class="subtotal">Subtotal: R$ {{ getProductTotalPrice(item.id) | number: '1.2-2' }}</p>
           <button mat-stroked-button extended>
             Adicionar ao Carrinho
             <mat-icon>add_shopping_cart</mat-icon>
-          </button>
+          </button>        
+
+          <!-- Preço Total do Produto -->
         </mat-card>
       </div>
 
