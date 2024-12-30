@@ -1,8 +1,11 @@
 import {ChangeDetectionStrategy, Component, signal} from '@angular/core';
 import { MenuService } from 'src/services/menu.service';
-import { CartStore } from '../stores/cart/cart.store';
 import { SingleProductStore } from '../stores/item/single-product.store';
 import { SingleProductQuery } from '../stores/item/single-product.query';
+import { CartStore } from '../stores/cart/cart.store';
+import { ProductsInCart } from '../stores/cart/cart.store';
+import { map } from 'rxjs';
+
 
 
 @Component({
@@ -11,6 +14,7 @@ import { SingleProductQuery } from '../stores/item/single-product.query';
   styleUrls: ['./cardapio.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,  
 })
+
 export class CardapioComponent {
   readonly panelOpenState = signal(false);
   expansionIcon: string = this.panelOpenState() ? "keyboard_arrow_down" : "keyboard_arrow_up"
@@ -25,7 +29,7 @@ export class CardapioComponent {
   sobremesas: any[] = [];
   bebidas: any[] = [];
 
-  menuData: { [key: string]: any[] } = {};
+  menuData: { [key: string]: any[] } = {};  
 
   
 
@@ -33,31 +37,27 @@ export class CardapioComponent {
   constructor(
     private menuService: MenuService,
     private singleProductStore: SingleProductStore,
-    private singleProductQuery: SingleProductQuery
+    private singleProductQuery: SingleProductQuery,
+    private cartStore: CartStore,
   ) {}
 
+  
   setOpenPanel(index: number) {
     this.openPanelIndex = index;
   }
-
+  
   addToProduct(item: any) {
     const existingProduct = this.singleProductQuery.getEntity(item.id);
-
-    console.log(existingProduct)
   
     if (!existingProduct) {
-      // Adiciona o produto à store com quantidade inicial = 1
       this.singleProductStore.add({
         id: item.id,
-        quantity: 1, // Começa com 1 no primeiro clique
+        quantity: 1, 
         itemPrice: item.price,
-        totalPrice: item.price, // Total inicial = preço unitário
+        totalPrice: item.price,
       });
-      console.log(item)
     } else {
-      // Incrementa a quantidade do produto
-      this.singleProductStore.sumCounter(item.id);
-      console.log(item)
+      this.singleProductStore.incrementProduct (item.id);
     }
   }
   
@@ -67,10 +67,8 @@ export class CardapioComponent {
 
     if (existingProduct) {
       if (existingProduct.quantity > 1) {
-        // Decrementa a quantidade do produto
-        this.singleProductStore.subtractionCounter(itemId);
+        this.singleProductStore.decrementProduct(itemId);
       } else {
-        // Remove o produto da store quando a quantidade for 1 e o usuário clicar para remover
         this.singleProductStore.remove(itemId);
       }
     }
@@ -86,6 +84,18 @@ export class CardapioComponent {
     return product ? product.totalPrice : 0;
   }
 
+  addToCart(item: any) {
+    console.log(item)
+    const product: ProductsInCart = {
+      id: item.id,
+      name: item.id,
+      quantity: 1,
+      price: item.price,
+    };
+
+    this.cartStore.addProduct(product); // Adiciona o produto à store do carrinho
+  }
+
 
   ngOnInit(): void {
     this.expansionMenus = this.menuService.getExpansionMenus();
@@ -96,6 +106,22 @@ export class CardapioComponent {
     this.menuData['Carnes'] = this.menuService.getCarnes();
     this.menuData['Peixes'] = this.menuService.getPeixes();
     this.menuData['Sobremesas'] = this.menuService.getSobremesas();
-    this.menuData['Bebidas'] = this.menuService.getBebidas();
-  }  
+    this.menuData['Bebidas'] = this.menuService.getBebidas();   
+
+    this.singleProductQuery
+    .selectAll()
+    .pipe(
+      map((products) =>
+        products.map((product) => ({
+          id: product.id,
+          name: product.id ?? 'Produto sem nome', // Ajuste para garantir o campo `name`
+          quantity: product.quantity,
+          price: product.itemPrice,
+        }))
+      )
+    )
+    .subscribe((productsInCart) => {
+      this.cartStore.updateCartFromProducts(productsInCart);
+    });
+  }
 }

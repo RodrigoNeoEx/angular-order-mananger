@@ -1,12 +1,32 @@
 import { Injectable } from '@angular/core';
-import { QueryEntity } from '@datorama/akita';
-import { CartState, CartStore } from './cart.store';
+import { Query } from '@datorama/akita';
+import { CartStore } from './cart.store';
+import { TotalInCart } from './cart.store';
 
 @Injectable({ providedIn: 'root' })
-export class CartQuery extends QueryEntity<CartState> {
-  totalItems$ = this.select(state => state.totalItems); // Observable para o total de itens
+export class CartQuery extends Query<TotalInCart> {
+  // Observable para o total de produtos únicos no carrinho
+  totalProducts$ = this.select(state => state.totalProducts);
+
+  // Observable para o preço total do carrinho
+  totalPrice$ = this.select(state => state.totalPrice);
+
+  // Observable para a lista de produtos no carrinho
+  products$ = this.select(state => state.products);
 
   constructor(protected override store: CartStore) {
     super(store);
+  }
+
+  getAllProducts() {
+    return this.getValue().products;
+  }
+
+  getTotalProducts() {
+    return this.getValue().totalProducts;
+  }
+
+  getTotalPrice() {
+    return this.getValue().totalPrice;
   }
 }

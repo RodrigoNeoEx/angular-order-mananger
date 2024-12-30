@@ -1,50 +1,97 @@
 import { Injectable } from '@angular/core';
-import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
+import { EntityState, StoreConfig, EntityStore } from '@datorama/akita';
 
-export interface CartItem {
+export interface ProductsInCart {
   id: string;
   name: string;
   quantity: number;
   price: number;
 }
 
-export interface CartState extends EntityState<CartItem> {
-  totalItems: number;
+export interface TotalInCart {
+  products: ProductsInCart[]; // Lista de produtos no carrinho
+  totalProducts: number; // Quantidade total de produtos únicos
+  totalPrice: number; // Soma total dos preços dos produtos
 }
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'cart' })
-export class CartStore extends EntityStore<CartState> {
+export class CartStore extends EntityStore<TotalInCart> {
   constructor() {
     super({
-      totalItems: 0,
-      entities: {},
+      products: [],
+      totalProducts: 0,
+      totalPrice: 0,
     });
   }
 
-  // Adicionar item ao carrinho
-  addItem(item: CartItem) {
-    this.add(item); // Adiciona o item à store
-    this.updateTotalItems();
+  /**
+   * Adiciona um produto ao carrinho
+   */
+  addProduct(product: ProductsInCart) {
+    const currentState = this.getValue();
+
+    // Cria uma cópia dos produtos para evitar alterações diretas no estado
+    const productsCopy = [...currentState.products];
+
+    // Verifica se o produto já existe no carrinho
+    const existingProductIndex = productsCopy.findIndex(p => p.id === product.id);
+
+    if (existingProductIndex > -1) {
+      // Atualiza a quantidade do produto existente
+      productsCopy[existingProductIndex] = {
+        ...productsCopy[existingProductIndex],
+        quantity: productsCopy[existingProductIndex].quantity + product.quantity,
+      };
+    } else {
+      // Adiciona o novo produto
+      productsCopy.push(product);
+    }
+
+    // Atualiza o estado com os produtos atualizados
+    this.update({
+      products: productsCopy,
+      totalProducts: productsCopy.length,
+      totalPrice: this.calculateTotalPrice(productsCopy),
+    });
   }
 
-  // Remover item do carrinho
-  removeItem(itemId: string) {
-    this.remove(itemId); // Remove o item pelo ID
-    this.updateTotalItems();
+  /**
+   * Remove um produto do carrinho
+   */
+  removeProduct(productId: string) {
+    const currentState = this.getValue();
+
+    // Cria uma nova lista de produtos sem o produto removido
+    const productsCopy = currentState.products.filter(product => product.id !== productId);
+
+    // Atualiza o estado com os produtos restantes
+    this.update({
+      products: productsCopy,
+      totalProducts: productsCopy.length,
+      totalPrice: this.calculateTotalPrice(productsCopy),
+    });
   }
 
-  // Atualizar a quantidade de um item
-  updateItemQuantity(itemId: string, quantity: number) {
-    this.update(itemId, { quantity });
-    this.updateTotalItems();
+  /**
+   * Calcula o preço total do carrinho
+   */
+  private calculateTotalPrice(products: ProductsInCart[]): number {
+    return products.reduce((sum, product) => sum + product.price * product.quantity, 0);
   }
 
-  // Atualizar o total de itens
-  private updateTotalItems() {
-    const entities = this.getValue().entities || {}; // Obtém todos os itens como um objeto
-    const total = Object.values(entities).reduce((sum, item: CartItem) => sum + (item.quantity || 0), 0);
-    this.update({ totalItems: total }); // Atualiza o total de itens no estado
-  }
-  
+  /**
+ * Atualiza o carrinho com base nos produtos
+ */
+updateCartFromProducts(products: ProductsInCart[]) {
+  const totalProducts = products.length;
+  const totalPrice = products.reduce((sum, product) => sum + product.price * product.quantity, 0);
+
+  this.update({
+    products,
+    totalProducts,
+    totalPrice,
+  });
+}
+
 }

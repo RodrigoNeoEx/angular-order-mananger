@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { EntityState, EntityStore, StoreConfig } from '@datorama/akita';
 
-
 export interface SingleProduct {
   id: string;
   quantity: number;
@@ -13,9 +12,8 @@ export interface SingleProductState extends EntityState<SingleProduct> {
   totalItems: number;
 }
 
-@Injectable({ providedIn: 'root'})
-@StoreConfig({ name: "singleProduct" })
-
+@Injectable({ providedIn: 'root' })
+@StoreConfig({ name: 'singleProduct' })
 export class SingleProductStore extends EntityStore<SingleProductState, SingleProduct> {
   constructor() {
     super({
@@ -23,30 +21,33 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     });
   }
 
-
-  sumCounter(productId: string) {
+  /**
+   * Incrementa a quantidade de um produto e atualiza seu total
+   */
+  incrementProduct(productId: string) {
     this.update(productId, entity => ({
       quantity: entity.quantity + 1,
+      totalPrice: parseFloat(((entity.quantity + 1) * entity.itemPrice).toFixed(2)), // Atualiza o total diretamente
     }));
-    this.updateTotalPrice(productId)
+    this.updateTotalItems(); // Atualiza o total de itens na store
   }
-  
-  
-  subtractionCounter(productId: string) {
+
+  /**
+   * Decrementa a quantidade de um produto e atualiza seu total
+   */
+  decrementProduct(productId: string) {
     this.update(productId, entity => ({
       quantity: entity.quantity > 0 ? entity.quantity - 1 : 0,
+      totalPrice: entity.quantity > 0 
+      ? parseFloat(((entity.quantity - 1) * entity.itemPrice).toFixed(2)) 
+      : 0, // Evita valores negativos
     }));
-    this.updateTotalPrice(productId)
+    this.updateTotalItems(); // Atualiza o total de itens na store
   }
-  
 
-  updateTotalPrice(productId: string) {
-    this.update(productId, entity => ({
-      totalPrice: entity.quantity * entity.itemPrice,
-    }));
-  }
-  
-  
+  /**
+   * Atualiza o total de todos os produtos
+   */
   updateTotalItems() {
     const entities = this.getValue().entities || {};
     const totalItems = Object.values(entities).reduce(
@@ -55,16 +56,4 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     );
     this.update({ totalItems });
   }
-  
-  incrementProduct(productId: string) {
-    this.sumCounter(productId); // Incrementa a quantidade
-    this.updateTotalPrice(productId); // Atualiza o preço total do produto
-  }
-  
-  decrementProduct(productId: string) {
-    this.subtractionCounter(productId); // Decrementa a quantidade
-    this.updateTotalPrice(productId); // Atualiza o preço total do produto
-  }
-
-
 }
