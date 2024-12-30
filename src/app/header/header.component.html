@@ -4,6 +4,9 @@
     <mat-toolbar-row>
       <span>{{ welcomeText() }} </span>
       <span class="example-spacer"></span>
+      <div *ngIf="isOnMenu" class="total">
+        R{{totalPrice$ | async | currency}}
+      </div>
       <button class="cart-button" mat-mini-fab aria-label="Cart Button" routerLink="/cart" (click)="onClick()">
           <mat-icon 
             matBadge="{{ totalItems$ | async }}"
@@ -15,7 +18,6 @@
         </mat-icon>
       </button>
     </mat-toolbar-row>
-  
   
   </mat-toolbar>
   
