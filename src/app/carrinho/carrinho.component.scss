@@ -1,0 +1,22 @@
+.card-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0.5rem 0;
+    .card-img {
+        height: 2rem;
+        width: 2rem;
+        margin-right: 0.5rem;
+    }
+    .card-title {
+        font-size: 0.9rem;
+        line-height: normal;
+        p {
+            margin: 0;
+        }
+    }
+    .card-actions {
+        position: absolute;
+        right: 0;
+    }
+}

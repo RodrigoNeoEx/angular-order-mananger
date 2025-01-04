@@ -7,6 +7,8 @@ import { CartQuery } from '../stores/cart/cart.query';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
+
+
 export class HeaderComponent implements OnInit {
   user: string | null = "";
   totalItems$ = this.cartQuery.totalProducts$; // total de itens unicos adicionados ao carrinho

@@ -8,6 +8,7 @@ export interface SingleProduct {
   totalPrice: number;
 }
 
+
 export interface SingleProductState extends EntityState<SingleProduct> {
   totalItems: number;
 }

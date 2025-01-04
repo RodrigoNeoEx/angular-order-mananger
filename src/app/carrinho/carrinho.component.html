@@ -10,33 +10,37 @@
   <mat-stepper orientation="vertical" #stepper>
     <mat-step [stepControl]="firstFormGroup">
       <ng-template matStepLabel>Itens Selecionados</ng-template>
-      <mat-card class="card-container">
-        <mat-card-header>
-          <mat-card-title-group>
-            <mat-card-title> item.name </mat-card-title>
-            <mat-card-subtitle> item.description </mat-card-subtitle>
-            <img mat-card-md-image src="../../assets/entrada1.webp" >
-          </mat-card-title-group>
-        </mat-card-header>
-        <mat-divider class="divider"></mat-divider>
-        <mat-card-actions class="card-actions">
-          <p>Preço: R$item.price</p>
+      <div *ngFor="let products of allProducts$ | async ">
+        <mat-card class="card-container">
          
-            <button class="card-button" mat-mini-fab aria-label="remove item button">
-              <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
-            </button>
-            <p>1</p>
-            <button class="card-button" mat-mini-fab aria-label="add cart Button">
-              <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
-            </button>
-       
-        </mat-card-actions>       
-      </mat-card>
+      
+              <img class="card-img" src="../../assets/entrada1.webp" >
+              <mat-card-title class="card-title"> 
+                <p>{{products.id }}</p>
+                <p> R{{products.itemPrice | currency}}</p>
+                <p> Quantidade: {{products.quantity}}</p>
+              </mat-card-title>             
+                 
+
+
+
+          <mat-card-actions class="card-actions">
+           
+              <button class="card-button" mat-mini-fab aria-label="remove item button">
+                <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
+              </button>
+              <button class="card-button" mat-mini-fab aria-label="add cart Button">
+                <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
+              </button>
+         
+          </mat-card-actions>       
+        </mat-card>
+      </div>
       <mat-divider class="divider"></mat-divider>
         <div class="values-container">
           <div>
             <p>Total No Carrinho</p>
-            <p>R$ 549,00</p>
+            <p> R{{totalPrice$ | async | currency}}</p>
           </div>
           <button mat-button matStepperNext>Proximo</button>
         </div>
