@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { QueryEntity } from '@datorama/akita';
 import { SingleProductState, SingleProductStore } from './single-product.store';
-import { state } from '@angular/animations';
 
 @Injectable({ providedIn: 'root' })
 export class SingleProductQuery extends QueryEntity<SingleProductState> {

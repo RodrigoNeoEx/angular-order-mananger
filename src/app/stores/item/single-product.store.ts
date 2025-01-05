@@ -6,6 +6,7 @@ export interface SingleProduct {
   quantity: number;
   itemPrice: number;
   totalPrice: number;
+  
 }
 
 

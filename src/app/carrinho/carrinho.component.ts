@@ -24,12 +24,23 @@ export class CarrinhoComponent implements OnInit {
     private productsQuery: SingleProductQuery
   ){}
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
+  itensOnCart = this._formBuilder.group({  });
+
+  userData = this._formBuilder.group({
+    name: ['', Validators.required],
+    phone: ['', Validators.required],
+    address: ['', Validators.required],
+    homeNumber: ['', Validators.required],
+    neighborhood: ['', Validators.required],
+    reference: ['', Validators.required],
   });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
+
+  paymentData = this._formBuilder.group({
+    paymentMethod: ['', Validators.required],
+    cardData: ['', Validators.required],
+
+  })
+
   isLinear = false;
 
   ngOnInit(): void {

@@ -8,102 +8,115 @@
 
 <div class="cart-container">
   <mat-stepper orientation="vertical" #stepper>
-    <mat-step [stepControl]="firstFormGroup">
+    <mat-step [stepControl]="itensOnCart">
       <ng-template matStepLabel>Itens Selecionados</ng-template>
       <div *ngFor="let products of allProducts$ | async ">
-        <mat-card class="card-container">
-         
-      
-              <img class="card-img" src="../../assets/entrada1.webp" >
-              <mat-card-title class="card-title"> 
-                <p>{{products.id }}</p>
-                <p> R{{products.itemPrice | currency}}</p>
-                <p> Quantidade: {{products.quantity}}</p>
-              </mat-card-title>             
-                 
-
-
-
+        <mat-card class="card-container">        
+    
+          <img class="card-img" src="../../assets/entrada1.webp" >
+          <mat-card-title class="card-title"> 
+            <p>{{products.id }}</p>
+            <p> R{{products.itemPrice | currency}}</p>
+            <p> Quantidade: {{products.quantity}}</p>
+          </mat-card-title>  
+            
           <mat-card-actions class="card-actions">
            
-              <button class="card-button" mat-mini-fab aria-label="remove item button">
-                <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
-              </button>
-              <button class="card-button" mat-mini-fab aria-label="add cart Button">
-                <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
-              </button>
+            <button class="card-button" mat-mini-fab aria-label="remove item button">
+              <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
+            </button>
+
+            <button class="card-button" mat-mini-fab aria-label="add cart Button">
+              <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
+            </button>
          
           </mat-card-actions>       
         </mat-card>
       </div>
-      <mat-divider class="divider"></mat-divider>
+
+      <mat-divider class="divider"/>
+
         <div class="values-container">
           <div>
             <p>Total No Carrinho</p>
             <p> R{{totalPrice$ | async | currency}}</p>
           </div>
           <button mat-button matStepperNext>Proximo</button>
-        </div>
+        </div>        
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Cadastro / Login </ng-template>
-        Logue google
-        <app-login-social></app-login-social>
-        ou Preencha os dados abaixo
 
-        <mat-form-field>
+    <mat-step [stepControl]="userData">
+      <ng-template matStepLabel>Cadastro / Login </ng-template>
+      <!-- Logue google
+      <app-login-social></app-login-social>
+      ou Preencha os dados abaixo -->
+      
+      <form [formGroup]="userData">
+
+        <mat-form-field >
           <mat-label>Nome</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          <input 
+            matInput 
+            formControlName="name"
+            placeholder="Nome ou como gostaria de ser chamado" 
+            required
+          >
         </mat-form-field>
         
         <mat-form-field>
-          <mat-label>Telefone</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          <mat-label>Celular</mat-label>
+          <input matInput formControlName="phone" placeholder="xx xxxxx xxxx" required>
         </mat-form-field>
         
         <mat-form-field>
           <mat-label>Endereço</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          <input matInput formControlName="address" placeholder="Seu endereço aqui" required>
         </mat-form-field>
         
         <mat-form-field>
         <mat-label>N°</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+          <input matInput formControlName="homeNumber" placeholder="número do local" type="number"
                 required>
         </mat-form-field>
         
-        <mat-form-field>
-          <mat-label>Apartamento/Casa</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-        </mat-form-field>
         
         <mat-form-field>
           <mat-label>Bairro</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+          <input matInput formControlName="neighborhood" placeholder="Seu bairo aqui" required>
+        </mat-form-field>
+        
+        <mat-form-field>
+          <mat-label>Ponto de Referencia </mat-label>
+          <input matInput formControlName="reference" placeholder="Prox a xxx, em frente a xxxx">
         </mat-form-field>
 
-        <div>
-          <button mat-button matStepperPrevious>Voltar</button>
-          <button mat-button matStepperNext>Proximo</button>
-        </div>
       </form>
+      <div>
+        <button mat-button matStepperPrevious>Voltar</button>
+        <button mat-button matStepperNext>Proximo</button>
+      </div>
     </mat-step>
 
     <mat-step>      
       <ng-template matStepLabel>Método de Pagamento</ng-template>
  
+      <form [formGroup]="paymentData">
+        <mat-form-field formControlName="paymentMethod">
+          <mat-label>Selecione Uma Forma de Pagamento</mat-label>
+            
+          <select matNativeControl required>
+            <option value="card">Cartão</option>       
+            <option value="Pix">Pix</option>
+            <option value="Dinheiro">Dinheiro</option>         
+          </select>
+  
+          <div *ngIf="">
+  
+          </div>
+  
+        </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Selecione Uma Forma de Pagamento</mat-label>  
-        <select matNativeControl required>
-          <option value="Débito">Débito</option>
-          <option value="Crédito">Crédito</option>
-          <option value="Pix">Pix</option>
-          <option value="Dinheiro">Dinheiro</option>
-          <option value="Refeição">Cartão Refeição</option>
-        </select>
-      </mat-form-field>
+      </form>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
         <button mat-button (click)="stepper.reset()">Enviar Pedido</button>
