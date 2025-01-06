@@ -3,12 +3,10 @@
 
 </router-outlet>
 
-<!-- diminuir tamanho do card image -->
-
 
 <div class="cart-container">
   <mat-stepper orientation="vertical" #stepper>
-    <mat-step [stepControl]="itensOnCart">
+    <mat-step >
       <ng-template matStepLabel>Itens Selecionados</ng-template>
       <div *ngFor="let products of allProducts$ | async ">
         <mat-card class="card-container">        
@@ -51,7 +49,7 @@
       <app-login-social></app-login-social>
       ou Preencha os dados abaixo -->
       
-      <form [formGroup]="userData">
+      <form [formGroup]="userData" (ngSubmit)="onSubmit()">
 
         <mat-form-field >
           <mat-label>Nome</mat-label>
@@ -59,67 +57,90 @@
             matInput 
             formControlName="name"
             placeholder="Nome ou como gostaria de ser chamado" 
+            value="''"
+            autocomplete="name"
             required
           >
         </mat-form-field>
         
         <mat-form-field>
-          <mat-label>Celular</mat-label>
-          <input matInput formControlName="phone" placeholder="xx xxxxx xxxx" required>
+          <mat-label>Telefone/Celular</mat-label>
+          <input 
+            matInput 
+            formControlName="phone" 
+            placeholder="xx xxxxx xxxx" 
+            value="''" 
+            autocomplete="tel"
+            required 
+          >
         </mat-form-field>
         
         <mat-form-field>
           <mat-label>Endereço</mat-label>
-          <input matInput formControlName="address" placeholder="Seu endereço aqui" required>
+          <input
+            matInput 
+            formControlName="address" 
+            placeholder="Seu endereço aqui" 
+            value="''"
+            autocomplete="street-address"
+            required 
+          >
         </mat-form-field>
         
         <mat-form-field>
         <mat-label>N°</mat-label>
-          <input matInput formControlName="homeNumber" placeholder="número do local" type="number"
-                required>
+          <input 
+            matInput 
+            formControlName="addressNumber" 
+            placeholder="número do local" 
+            value="''"            
+            required 
+          >
         </mat-form-field>
         
         
         <mat-form-field>
           <mat-label>Bairro</mat-label>
-          <input matInput formControlName="neighborhood" placeholder="Seu bairo aqui" required>
+          <input 
+            matInput 
+            formControlName="neighborhood"
+            placeholder="Seu bairo aqui"
+            value="''"
+            autocomplete="address-level2"
+            required
+          >
         </mat-form-field>
         
         <mat-form-field>
           <mat-label>Ponto de Referencia </mat-label>
-          <input matInput formControlName="reference" placeholder="Prox a xxx, em frente a xxxx">
+          <input matInput formControlName="reference" placeholder="Prox a xxx, em frente a xxxx" value="''">
         </mat-form-field>
 
       </form>
+
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
         <button mat-button matStepperNext>Proximo</button>
       </div>
     </mat-step>
 
-    <mat-step>      
+    <mat-step [stepControl]="paymentData">      
       <ng-template matStepLabel>Método de Pagamento</ng-template>
  
-      <form [formGroup]="paymentData">
-        <mat-form-field formControlName="paymentMethod">
-          <mat-label>Selecione Uma Forma de Pagamento</mat-label>
-            
-          <select matNativeControl required>
-            <option value="card">Cartão</option>       
-            <option value="Pix">Pix</option>
-            <option value="Dinheiro">Dinheiro</option>         
-          </select>
-  
-          <div *ngIf="">
-  
-          </div>
-  
+      <form [formGroup]="paymentData" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+          <mat-label>Forma de Pagamento</mat-label>
+          <mat-select formControlName="paymentMethod" required>
+            <mat-option value="card">Cartão</mat-option>
+            <mat-option value="pix">Pix</mat-option>
+            <mat-option value="cash">Dinheiro</mat-option>
+          </mat-select>
         </mat-form-field>
 
       </form>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button (click)="stepper.reset()">Enviar Pedido</button>
+        <button mat-button [disabled]="!userData.valid || !paymentData.valid" (click)="onSubmit()">Enviar Pedido</button>
       </div>
     </mat-step>
   </mat-stepper>

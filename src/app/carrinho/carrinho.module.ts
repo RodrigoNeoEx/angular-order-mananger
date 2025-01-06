@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarrinhoComponent } from './carrinho.component';
 import { RouterModule } from '@angular/router';
-import {Component, inject} from '@angular/core';
-import {FormBuilder, Validators, FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatButtonModule} from '@angular/material/button';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { SharedModule } from '../shared/shared.module';
+import {MatSelectModule} from '@angular/material/select';
+
 
 
 @NgModule({
@@ -31,7 +32,9 @@ import { SharedModule } from '../shared/shared.module';
     MatButtonModule,
     MatIconModule,
     MatDividerModule,
-    SharedModule
+    SharedModule,
+    MatSelectModule,
+    
   ],
   exports: [CarrinhoComponent]
 })
