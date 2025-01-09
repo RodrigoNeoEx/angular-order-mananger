@@ -5,9 +5,7 @@ import { SingleProductQuery } from '../stores/item/single-product.query';
 import { CartStore } from '../stores/cart/cart.store';
 import { ProductsInCart } from '../stores/cart/cart.store';
 import { map } from 'rxjs';
-import { CartQuery } from '../stores/cart/cart.query';
-
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cardapio',
@@ -40,7 +38,7 @@ export class CardapioComponent {
     private singleProductStore: SingleProductStore,
     private singleProductQuery: SingleProductQuery,
     private cartStore: CartStore,
-    private cartQuery: CartQuery
+    private router: Router
   ) {}
 
   
@@ -126,5 +124,7 @@ export class CardapioComponent {
       this.cartStore.updateCartFromProducts(productsInCart);
     });
   }
+
+  onClick() {this.router.navigate(['/cart'])};
 }
 
