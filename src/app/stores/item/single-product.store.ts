@@ -9,6 +9,12 @@ export interface SingleProduct {
   
 }
 
+export interface ProductsInCart {
+  id: string;
+  name: string;
+  quantity: number;
+  price: number;
+}
 
 export interface SingleProductState extends EntityState<SingleProduct> {
   totalItems: number;
@@ -16,6 +22,7 @@ export interface SingleProductState extends EntityState<SingleProduct> {
 
 @Injectable({ providedIn: 'root' })
 @StoreConfig({ name: 'singleProduct' })
+
 export class SingleProductStore extends EntityStore<SingleProductState, SingleProduct> {
   constructor() {
     super({
@@ -23,9 +30,19 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     });
   }
 
-  /**
-   * Incrementa a quantidade de um produto e atualiza seu total
-   */
+  // Sincroniza dados dos produtos com carrinho
+syncFromCart(productsInCart: ProductsInCart[]) {
+  productsInCart.forEach(cartProduct => {
+    if (cartProduct.quantity > 0) {
+      this.upsert(cartProduct.id, { quantity: cartProduct.quantity });
+    } else {
+      this.remove(cartProduct.id);
+    }
+  });
+}
+
+  // Incrementa a quantidade de um produto e atualiza seu total
+   
   incrementProduct(productId: string) {
     this.update(productId, entity => ({
       quantity: entity.quantity + 1,
@@ -34,9 +51,8 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     this.updateTotalItems(); // Atualiza o total de itens na store
   }
 
-  /**
-   * Decrementa a quantidade de um produto e atualiza seu total
-   */
+  // Decrementa a quantidade de um produto e atualiza seu total
+   
   decrementProduct(productId: string) {
     this.update(productId, entity => ({
       quantity: entity.quantity > 0 ? entity.quantity - 1 : 0,
@@ -47,9 +63,8 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     this.updateTotalItems(); // Atualiza o total de itens na store
   }
 
-  /**
-   * Atualiza o total de todos os produtos
-   */
+  // Atualiza o total de todos os produtos
+  
   updateTotalItems() {
     const entities = this.getValue().entities || {};
     const totalItems = Object.values(entities).reduce(
@@ -58,4 +73,5 @@ export class SingleProductStore extends EntityStore<SingleProductState, SinglePr
     );
     this.update({ totalItems });
   }
+  
 }

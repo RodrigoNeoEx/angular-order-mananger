@@ -5,27 +5,42 @@
 
 
 <div class="cart-container">
+  
   <mat-stepper orientation="vertical" #stepper>
+
+    <!-- step lista de compras -->
     <mat-step >
       <ng-template matStepLabel>Itens Selecionados</ng-template>
-      <div *ngFor="let products of allProducts$ | async ">
+      <div *ngFor="let products of products$ | async ">
         <mat-card class="card-container">        
     
           <img class="card-img" src="../../assets/entrada1.webp" >
           <mat-card-title class="card-title"> 
             <p>{{products.id }}</p>
-            <p> R{{products.itemPrice | currency}}</p>
+            <p> R{{products.price | currency}}</p>
             <p> Quantidade: {{products.quantity}}</p>
           </mat-card-title>  
             
           <mat-card-actions class="card-actions">
            
-            <button class="card-button" mat-mini-fab aria-label="remove item button">
-              <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
+            <button class="card-button" mat-mini-fab aria-label="remove item button" (click)="decrementQuantity(products.id)">
+              <mat-icon
+                class="card-icon" 
+                aria-hidden="false" 
+                aria-label="Example user verified icon"                
+              >
+                remove_circle_outline
+              </mat-icon>
             </button>
 
-            <button class="card-button" mat-mini-fab aria-label="add cart Button">
-              <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
+            <button class="card-button" mat-mini-fab aria-label="add cart Button" (click)="incrementQuantity(products.id)">
+              <mat-icon  
+                class="card-icon" 
+                aria-hidden="false" 
+                aria-label="Example user verified icon"                 
+              >
+                add_circle_outline
+              </mat-icon>
             </button>
          
           </mat-card-actions>       
@@ -43,6 +58,8 @@
         </div>        
     </mat-step>
 
+
+    <!-- step dados do usuario -->
     <mat-step [stepControl]="userData">
       <ng-template matStepLabel>Cadastro / Login </ng-template>
       <!-- Logue google
@@ -124,6 +141,7 @@
       </div>
     </mat-step>
 
+    <!-- step dados de pagamento -->
     <mat-step [stepControl]="paymentData">      
       <ng-template matStepLabel>Método de Pagamento</ng-template>
  

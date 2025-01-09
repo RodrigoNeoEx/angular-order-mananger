@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CartQuery } from '../stores/cart/cart.query';
-import { SingleProductQuery } from '../stores/item/single-product.query';
 import { UserData, UserStore } from '../stores/user-data/user.store';
+import { CartStore } from '../stores/cart/cart.store';
 
 @Component({
   selector: 'app-carrinho',
   templateUrl: './carrinho.component.html',
   styleUrls: ['./carrinho.component.scss'],
 })
-export class CarrinhoComponent implements OnInit {
+
+export class CarrinhoComponent {
   totalPrice$ = this.cartQuery.select((state) => state.totalPrice);
-  allProducts$ = this.productsQuery.allProducts$;
+  products$ = this.cartQuery.products$;
 
   userData: FormGroup;
   paymentData: FormGroup;
@@ -19,7 +20,7 @@ export class CarrinhoComponent implements OnInit {
 
   constructor(
     private cartQuery: CartQuery,
-    private productsQuery: SingleProductQuery,
+    private cartStore: CartStore,
     private _formBuilder: FormBuilder,
     private userStore: UserStore
   ) {
@@ -37,7 +38,14 @@ export class CarrinhoComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  incrementQuantity(productId: string) {
+    this.cartStore.incrementProductQuantity(productId);
+  }
+  
+  decrementQuantity(productId: string) {
+    this.cartStore.decrementProductQuantity(productId);
+  }
+  
 
   onSubmit() {
     if (this.userData.valid && this.paymentData.valid) {
@@ -47,9 +55,6 @@ export class CarrinhoComponent implements OnInit {
       } as UserData;
   
       this.userStore.updateUserData(userData);
-      console.log(userData);
-    } else {
-      console.log('Formulário inválido.');
     }
   }
   

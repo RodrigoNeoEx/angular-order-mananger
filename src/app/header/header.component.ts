@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
 
     constructor(
       private cartQuery: CartQuery,
-      private router: Router
+      private router: Router,
     ) {}
   
   onClick() {this.router.navigate(['/cart'])};
@@ -27,16 +27,15 @@ export class HeaderComponent implements OnInit {
     return text
   }
   
-  
 
   ngOnInit(): void {
-    const storedUser = localStorage.getItem('user'); // Pega os dados do localStorage
+    const storedUser = localStorage.getItem('user'); 
     this.isOnMenu = this.router.url === '/menu'; 
     if (storedUser) {
-      const user = JSON.parse(storedUser); // Converte para JSON
-      this.user = user.displayName ? user.displayName : ""; // Acessa o displayName ou define como 'visitante'
+      const user = JSON.parse(storedUser);
+      this.user = user.displayName ? user.displayName : "";
     } else {
       this.user = "";
-    }
+    }    
   }
 }
