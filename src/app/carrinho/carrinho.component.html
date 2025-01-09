@@ -5,8 +5,9 @@
 
 
 <div class="cart-container">
+
   
-  <mat-stepper orientation="vertical" #stepper>
+  <mat-stepper orientation="vertical" #stepper (selectionChange)="onStepChange($event, stepper)">
 
     <!-- step lista de compras -->
     <mat-step >
@@ -54,13 +55,13 @@
             <p>Total No Carrinho</p>
             <p> R{{totalPrice$ | async | currency}}</p>
           </div>
-          <button mat-button matStepperNext>Proximo</button>
+          <button mat-button matStepperNext  [disabled]="!(this.hasProductsInCart$ | async)">Proximo</button>
         </div>        
     </mat-step>
 
 
     <!-- step dados do usuario -->
-    <mat-step [stepControl]="userData">
+    <mat-step [stepControl]="userData" >
       <ng-template matStepLabel>Cadastro / Login </ng-template>
       <!-- Logue google
       <app-login-social></app-login-social>
@@ -137,7 +138,7 @@
 
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext>Proximo</button>
+        <button mat-button matStepperNext [disabled]="!userData.valid"  (click)="onSubmit()">Proximo</button>
       </div>
     </mat-step>
 
@@ -148,14 +149,14 @@
       <form [formGroup]="paymentData" (ngSubmit)="onSubmit()">
         <mat-form-field>
           <mat-label>Forma de Pagamento</mat-label>
-          <mat-select formControlName="paymentMethod" required>
+          <mat-select formControlName="paymentMethod" required [(value)]="selected" (selectionChange)="onSelectionChange($event.value)">
             <mat-option value="card">Cartão</mat-option>
             <mat-option value="pix">Pix</mat-option>
             <mat-option value="cash">Dinheiro</mat-option>
           </mat-select>
         </mat-form-field>
-
       </form>
+      <div *ngIf="textControl"> Após efetuar o Pix mande o comprovante pelo WhatsApp. Dados do Pix: 13 99116 4296</div>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
         <button mat-button [disabled]="!userData.valid || !paymentData.valid" (click)="onSubmit()">Enviar Pedido</button>

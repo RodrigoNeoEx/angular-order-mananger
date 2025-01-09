@@ -14,6 +14,8 @@ export class CartQuery extends Query<TotalInCart> {
   // Observable para a lista de produtos no carrinho
   products$ = this.select(state => state.products);
 
+  hasProductsInCart$ = this.select(state => state.products.length > 0);
+
   constructor(protected override store: CartStore) {
     super(store);
   }
