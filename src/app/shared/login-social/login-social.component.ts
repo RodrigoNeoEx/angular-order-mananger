@@ -28,7 +28,7 @@ export class LoginSocialComponent  implements OnInit {
     this.googleAuthService.loginWithGoogle()
       .then(() => {
         this.isLoggedIn = true
-        // this.router.navigate(['/menu'])
+        this.router.navigate(['/menu'])
       }
       );
   }
