@@ -1,6 +1,9 @@
 # Angular Order Manager
 
 Esta é uma aplicação de gerenciamento de pedidos para restaurantes, permitindo uma experiência eficiente tanto para clientes quanto para administradores.
+Construida inicialmente para ser uma aplicação web com foco mobile
+
+### Teste a aplicação em: [Angular-Order-Manger](https://angular-order-mananger.vercel.app/)
 
 ## Funcionalidades Principais
 
