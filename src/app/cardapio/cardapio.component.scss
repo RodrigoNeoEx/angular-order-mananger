@@ -1,6 +1,11 @@
 .cardapio-container {
   background: url('../../assets/menuBackground.webp') center/cover repeat;
   height: 100vh;
+  .button-container {
+    display: flex    ;
+    width: 100vw;
+    justify-content: center;
+  }
 }
 
 .accordion-container {
@@ -9,11 +14,15 @@
   padding-right: 0.5rem;
   .container-panel {
     min-height: 3.5rem;
+    background: #faebd7bd;
     .container-expansion {
       min-height: 3rem;
       height: auto;
       margin: 0.5rem 0;
     }
+  }
+  ::ng-deep .mat-expansion-panel-header { 
+    background: white !important;
   }
   ::ng-deep .mat-expansion-panel-content {
     max-height: 40vh !important;
@@ -58,60 +67,31 @@
 }
 
 @media screen and (min-width: 600px) {
-  .cardapio-container {
-    height: 100%;
-  }
   .accordion-container {
     flex-direction: column;
     margin: 0;
     padding-right: 0;
     .container-panel {
-      min-height: 3.5rem;
       margin: 0.5rem 1rem;
-    
-      .container-expansion {
-        min-height: 3rem;
-        height: auto;
-        margin: 0.5rem 0;
+      ::ng-deep .mat-expansion-panel-header {
+        font-size: 1.1rem;
       }
-    }
-    ::ng-deep .mat-expansion-panel-content {
-      max-height: 40vh !important;
-      overflow: overlay !important;
-    }    
-  }
-  .divider {
-    margin-top: 8px;
-  }
-  .card-container {
-    margin-top: 0.7rem;
-    ::ng-deep .mdc-card__actions {
-      justify-content: space-around !important;
-      align-items: self-end !important;
-      padding-bottom: 0;
-    }
-    .card-button {
-      background-color: transparent;
-      box-shadow: 0 0 0 0;
-      .card-icon{
-        color: black;
+      ::ng-deep .mat-mdc-card-title {
+        font-size: 2rem;
       }
-    }
+      ::ng-deep .mat-mdc-card-subtitle {
+        font-size: 1.2rem;
+      }
+      ::ng-deep .mat-mdc-card-actions {
+        font-size: 1.5rem;
+      }
+      
+    }   
   }
   .subtotal {
-    margin: 0 1rem;
-    padding: 0 0.5rem 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 500;
   }
-  .go-to-cart-btn {
-    width: 75%;
-    position: absolute;
-    .cart-icon {
-      position: absolute;
-      bottom: 0;
-      margin-left: 0.5rem;
-    }
-  }
-  
 }
 
 @media screen  and (min-width: 1024px) {
