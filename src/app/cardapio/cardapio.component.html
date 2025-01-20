@@ -1,73 +1,72 @@
 
-<div class="cardapio-container">
+<section class="cardapio-container">
   <app-header></app-header>
-  <mat-accordion *ngFor="let menu of expansionMenus let i = index" class="accordion-container">
-    <mat-expansion-panel 
-      [expanded]="openPanelIndex === i"
-      (opened)="setOpenPanel(i)"
-      class="container-panel"         
-    >
-      <mat-expansion-panel-header class="container-expansion">
-        <mat-panel-title> {{menu.title}} </mat-panel-title>
-        <mat-panel-description> {{menu.description}} </mat-panel-description>
-        <mat-icon>this.expansionIcon</mat-icon>
-      </mat-expansion-panel-header>
+  <div>
 
-      <div *ngFor="let item of menuData[menu.title]">
-        <mat-card class="card-container">
-          <mat-card-header>
-            <mat-card-title-group>
-              <mat-card-title>{{ item.id }}</mat-card-title>
-              <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
-              <img mat-card-md-image src="../../assets/entrada1.webp" >
-            </mat-card-title-group>
-          </mat-card-header>
-          <mat-divider class="divider"></mat-divider>
-          <mat-card-actions class="card-actions">
-            <p>Preço: R${{item.price}}</p>
+    <mat-accordion *ngFor="let menu of expansionMenus let i = index" class="accordion-container">
+      <mat-expansion-panel 
+        [expanded]="openPanelIndex === i"
+        (opened)="setOpenPanel(i)"
+        class="container-panel"         
+      >
+        <mat-expansion-panel-header class="container-expansion">
+          <mat-panel-title> {{menu.title}} </mat-panel-title>
+          <mat-panel-description> {{menu.description}} </mat-panel-description>
+          <mat-icon>this.expansionIcon</mat-icon>
+        </mat-expansion-panel-header>
+  
+        <div *ngFor="let item of menuData[menu.title]">
+          <mat-card class="card-container">
+            <mat-card-header>
+              <mat-card-title-group>
+                <mat-card-title>{{ item.id }}</mat-card-title>
+                <mat-card-subtitle>{{ item.description }}</mat-card-subtitle>
+                <img mat-card-md-image src="../../assets/entrada1.webp" >
+              </mat-card-title-group>
+            </mat-card-header>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-actions class="card-actions">
+              <p>Preço: R${{item.price}}</p>
+             
+                <button 
+                  class="card-button"
+                  mat-mini-fab 
+                  aria-label="remove item button" 
+                  (click)="removeFromProduct(item.id)"
+                >
+                  <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
+                </button>
+  
+  
+                <p>{{ getProductQuantity(item.id) }}</p>
+                
+                
+                <button 
+                  class="card-button" 
+                  mat-mini-fab 
+                  aria-label="add cart Button" 
+                  (click)="addToProduct(item)"
+                >
+                  <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
+                </button>
            
-              <button 
-                class="card-button"
-                mat-mini-fab 
-                aria-label="remove item button" 
-                (click)="removeFromProduct(item.id)"
-              >
-                <mat-icon class="card-icon" aria-hidden="false" aria-label="Example user verified icon">remove_circle_outline</mat-icon>
-              </button>
-
-
-              <p>{{ getProductQuantity(item.id) }}</p>
-              
-              
-              <button 
-                class="card-button" 
-                mat-mini-fab 
-                aria-label="add cart Button" 
-                (click)="addToProduct(item)"
-              >
-                <mat-icon  class="card-icon" aria-hidden="false" aria-label="Example user verified icon">add_circle_outline</mat-icon>
-              </button>
-         
-            </mat-card-actions>
-            <p class="subtotal">Subtotal: R$ {{ getProductTotalPrice(item.id) | number: '1.2-2' }}</p>
-          <!-- <button mat-stroked-button extended (click)="addToCart(item)">
-            Adicionar ao Carrinho
-            <mat-icon>add_shopping_cart</mat-icon>
-          </button>         -->
-
-          <!-- Preço Total do Produto -->
-        </mat-card>
-      </div>
-
-    </mat-expansion-panel>
-  </mat-accordion>
+              </mat-card-actions>
+              <p class="subtotal">Subtotal: R$ {{ getProductTotalPrice(item.id) | number: '1.2-2' }}</p>
+            <!-- <button mat-stroked-button extended (click)="addToCart(item)">
+              Adicionar ao Carrinho
+              <mat-icon>add_shopping_cart</mat-icon>
+            </button>         -->
+  
+            <!-- Preço Total do Produto -->
+          </mat-card>
+        </div>
+  
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
 
   <button mat-raised-button (click)="onClick()" class="go-to-cart-btn" routerLink="/cart">
-    <span>Finalizar Compras <mat-icon class="cart-icon">shopping_cart</mat-icon></span>
-
-
-      
-
+    <span>Finalizar Compras <mat-icon class="cart-icon">shopping_cart</mat-icon></span>  
   </button>
-</div>
+</section>
 

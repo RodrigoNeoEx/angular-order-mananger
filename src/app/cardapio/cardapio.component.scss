@@ -48,7 +48,7 @@
 }
 
 .go-to-cart-btn {
-  width: 100%;
+  width: 75%;
   position: absolute;
   .cart-icon {
     position: absolute;
@@ -56,3 +56,75 @@
     margin-left: 0.5rem;
   }
 }
+
+@media screen and (min-width: 600px) {
+  .cardapio-container {
+    height: 100%;
+  }
+  .accordion-container {
+    flex-direction: column;
+    margin: 0;
+    padding-right: 0;
+    .container-panel {
+      min-height: 3.5rem;
+      margin: 0.5rem 1rem;
+    
+      .container-expansion {
+        min-height: 3rem;
+        height: auto;
+        margin: 0.5rem 0;
+      }
+    }
+    ::ng-deep .mat-expansion-panel-content {
+      max-height: 40vh !important;
+      overflow: overlay !important;
+    }    
+  }
+  .divider {
+    margin-top: 8px;
+  }
+  .card-container {
+    margin-top: 0.7rem;
+    ::ng-deep .mdc-card__actions {
+      justify-content: space-around !important;
+      align-items: self-end !important;
+      padding-bottom: 0;
+    }
+    .card-button {
+      background-color: transparent;
+      box-shadow: 0 0 0 0;
+      .card-icon{
+        color: black;
+      }
+    }
+  }
+  .subtotal {
+    margin: 0 1rem;
+    padding: 0 0.5rem 0.5rem;
+  }
+  .go-to-cart-btn {
+    width: 75%;
+    position: absolute;
+    .cart-icon {
+      position: absolute;
+      bottom: 0;
+      margin-left: 0.5rem;
+    }
+  }
+  
+}
+
+@media screen  and (min-width: 1024px) {
+  ::ng-deep .mat-expansion-panel-body {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      grid-gap: 1rem !important;
+    }
+  }
+
+  @media screen and (min-width: 1500px) {
+    ::ng-deep .mat-expansion-panel-body {
+        grid-template-columns: 1fr 1fr 1fr !important;
+      }
+    }
+  

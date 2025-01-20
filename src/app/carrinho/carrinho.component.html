@@ -156,7 +156,11 @@
           </mat-select>
         </mat-form-field>
       </form>
-      <div *ngIf="textControl"> Após efetuar o Pix mande o comprovante pelo WhatsApp. Dados do Pix: 13 99116 4296</div>
+      <div *ngIf="textControl" class="payment-text"> 
+        <p>
+          Após efetuar o Pix mande o comprovante pelo WhatsApp. <br/> Dados do Pix: 13 99116 4296 <br/> Nome: XXXX
+        </p> 
+      </div>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
         <button mat-button [disabled]="!userData.valid || !paymentData.valid" (click)="onSubmit()">Enviar Pedido</button>
@@ -165,14 +169,17 @@
   </mat-stepper>
 </div>
 
-<div>
+<div class="container-menu-button"  >
   <button 
   mat-raised-button 
   class="menu-button"         
   routerLink="/menu"
 >
- Retornar ao Cardapio
-  <img class="img-icon" src="../../assets/retaurantIconSVG.svg" alt="retaurant icon" width="24" height="24" />
+  <span>
+
+    Retornar ao Cardapio
+     <img class="img-icon" src="../../assets/retaurantIconSVG.svg" alt="retaurant icon" width="24" height="24" />
+  </span>
   
 </button>  
 </div>

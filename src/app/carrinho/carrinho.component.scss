@@ -40,4 +40,28 @@
     box-shadow: 0 0 0px 1000px white inset !important;
   }
 
+  .payment-text {
+    font-size: 1rem;
+    padding: 1rem;
+  }
+
+  .container-menu-button {
+    display: flex;
+    justify-content: center;
+    padding-top: 0.5rem;
+    button {   
+        background-color: #000000b0; // Botão preto (segundo)
+        color: #ffffff; // Cor do texto branco
+        align-items: start;
+        .img-icon {
+            position: relative;
+            top: 0.5rem;
+            margin-left: 0.5rem;
+        }
+    }
+    
+  }
+
+
+
 // input:-internal-autofill-selected
