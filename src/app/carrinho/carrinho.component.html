@@ -55,7 +55,10 @@
             <p>Total No Carrinho</p>
             <p> R{{totalPrice$ | async | currency}}</p>
           </div>
-          <button mat-button matStepperNext  [disabled]="!(this.hasProductsInCart$ | async)">Proximo</button>
+          <div class="button-container">
+
+            <button mat-raised-button matStepperNext  [disabled]="!(this.hasProductsInCart$ | async)">Proximo</button>
+          </div>
         </div>        
     </mat-step>
 
@@ -136,9 +139,9 @@
 
       </form>
 
-      <div>
-        <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button matStepperNext [disabled]="!userData.valid"  (click)="onSubmit()">Proximo</button>
+      <div class="button-container">
+        <button mat-raised-button matStepperPrevious>Voltar</button>
+        <button mat-raised-button matStepperNext [disabled]="!userData.valid"  (click)="onSubmit()">Proximo</button>
       </div>
     </mat-step>
 
@@ -161,8 +164,8 @@
           Após efetuar o Pix mande o comprovante pelo WhatsApp. <br/> Dados do Pix: 13 99116 4296 <br/> Nome: XXXX
         </p> 
       </div>
-      <div>
-        <button mat-button matStepperPrevious>Voltar</button>
+      <div class="button-container">
+        <button mat-raised-button matStepperPrevious>Voltar</button>
         <button mat-button [disabled]="!userData.valid || !paymentData.valid" (click)="sendOrderToWpp(userData, paymentData, totalPrice$, products$)">Enviar Pedido</button>
       </div>
     </mat-step>
