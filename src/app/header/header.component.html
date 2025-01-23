@@ -7,7 +7,14 @@
       <div *ngIf="isOnMenu" class="total">
         R{{totalPrice$ | async | currency}}
       </div>
-      <button class="cart-button" mat-mini-fab aria-label="Cart Button" routerLink="/cart" (click)="onClick()">
+      <button 
+        class="cart-button" 
+        mat-mini-fab 
+        aria-label="Cart Button" 
+        routerLink="/cart"
+        (click)="onClick()"
+        [disabled]="((totalPrice$ | async) ?? 0) <= 0"
+      >
           <mat-icon 
             matBadge="{{ totalItems$ | async }}"
             class="demo-section" 
