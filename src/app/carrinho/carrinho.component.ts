@@ -3,8 +3,10 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CartQuery } from '../stores/cart/cart.query';
 import { UserData, UserStore } from '../stores/user-data/user.store';
 import { CartStore } from '../stores/cart/cart.store';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { MatStepper } from '@angular/material/stepper';
+
+// import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -60,7 +62,7 @@ export class CarrinhoComponent {
       } as UserData;
   
       this.userStore.updateUserData(userData);
-    }
+    }    
   }
 
   ngOnInit() {
@@ -91,8 +93,42 @@ export class CarrinhoComponent {
       return this.onSubmit();
     }
   }
-  
-  
-  
-  
+
+  async sendOrderToWpp(userData: FormGroup, paymentData: FormGroup, totalPrice$: Observable<number>, products$: Observable<any[]>) {
+
+    const totalPrice = await firstValueFrom(totalPrice$);
+    const products = await firstValueFrom(products$);
+    const user = userData.getRawValue()
+    const payment = paymentData.getRawValue()
+    const message = encodeURIComponent(`
+
+Seu pedido foi realizado com sucesso ${user.name}! 🎉
+
+Itens do pedido:
+${products.map((product) => 
+`${product.quantity}x  ${product.id} total - R$ ${(product.quantity * product.price).toFixed(2)}`).join('\n')}
+
+Dados do Cliente:
+Nome: ${user.name}
+Telefone: ${user.phone}
+Endereço: ${user.address}, ${user.addressNumber} - ${user.neighborhood}
+
+💳 Forma de Pagamento: ${payment.paymentMethod}
+💵 Total: R$ ${totalPrice.toFixed(2)}
+
+
+Obrigado pela preferência! 😊
+        `);
+        
+    const whatsappLink = `https://wa.me/${user.phone}?text=${message}`;            
+
+    return window.open(whatsappLink, '_blank');
+  }
 }
+
+
+  
+  
+  
+  
+

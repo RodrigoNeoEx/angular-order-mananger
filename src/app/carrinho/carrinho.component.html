@@ -163,7 +163,7 @@
       </div>
       <div>
         <button mat-button matStepperPrevious>Voltar</button>
-        <button mat-button [disabled]="!userData.valid || !paymentData.valid" (click)="onSubmit()">Enviar Pedido</button>
+        <button mat-button [disabled]="!userData.valid || !paymentData.valid" (click)="sendOrderToWpp(userData, paymentData, totalPrice$, products$)">Enviar Pedido</button>
       </div>
     </mat-step>
   </mat-stepper>
