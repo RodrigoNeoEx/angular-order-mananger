@@ -1,12 +1,12 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: "AIzaSyAW0YZAJFU6pCFQp5j6EFegkVA_PxvKHno",
-    authDomain: "order-mananger.firebaseapp.com",
-    projectId: "order-mananger",
-    storageBucket: "order-mananger.appspot.com", // Corrigido
-    messagingSenderId: "127592356569",
-    appId: "1:127592356569:web:c7088467061c59cb01fcc8",
-    measurementId: "G-MX9MCYNHK8",
-  }
+    apiKey: (window as any).env.FIREBASE_API_KEY || "",
+    authDomain: (window as any).env.FIREBASE_AUTH_DOMAIN || "",
+    projectId: (window as any).env.FIREBASE_PROJECT_ID || "",
+    storageBucket: (window as any).env.FIREBASE_STORAGE_BUCKET || "",
+    messagingSenderId: (window as any).env.FIREBASE_MESSAGING_SENDER_ID || "",
+    appId: (window as any).env.FIREBASE_APP_ID || "",
+    measurementId: (window as any).env.FIREBASE_MEASUREMENT_ID || "",
+  },
 };

@@ -23,6 +23,7 @@
     "@angular/router": "^16.2.0",
     "@datorama/akita": "^8.0.1",
     "@datorama/akita-ngdevtools": "^7.0.0",
+    "dotenv": "^16.4.7",
     "firebase": "^11.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
